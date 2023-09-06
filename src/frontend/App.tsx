@@ -3,23 +3,29 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 
 import CloudIcon from "./components/cloudIcon";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 function App() {
   const [result, setResult] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    // Do whatever you want with the file contents
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("image", acceptedFiles[0]);
+
+    // POST request to server
     const response = await axios.post("api/data", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
       responseType: "blob",
     });
-
+    // Treat the response data as a Blob object and set the converted image URL
     const blob = new Blob([response.data], { type: "image/png" });
     setResult(URL.createObjectURL(blob));
+
+    setIsLoading(false);
   }, []);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
@@ -67,7 +73,18 @@ function App() {
           </div>
         </div>
         {files}
-        <img src={result} alt="Image" />
+        <div className="flex flex-col items-center justify-center">
+          <img src={result} />
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            visible={isLoading}
+          />
+        </div>
       </main>
     </>
   );
