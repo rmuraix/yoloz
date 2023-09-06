@@ -1,11 +1,25 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 
 import CloudIcon from "./components/cloudIcon";
+import axios from "axios";
 
 function App() {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
+  const [result, setResult] = useState<string | undefined>(undefined);
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    // Do whatever you want with the file contents
+    const formData = new FormData();
+    formData.append("image", acceptedFiles[0]);
+    const response = await axios.post("api/data", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      responseType: "blob",
+    });
+
+    const blob = new Blob([response.data], { type: "image/png" });
+    setResult(URL.createObjectURL(blob));
   }, []);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
@@ -53,6 +67,7 @@ function App() {
           </div>
         </div>
         {files}
+        <img src={result} alt="Image" />
       </main>
     </>
   );
