@@ -6,6 +6,16 @@ export default function Header() {
           <span className="text-2xl font-semibold text-gray-900 dark:text-white">
             Tomato Recognizer
           </span>
+          <div className="flex space-x-4 text-gray-900 dark:text-white">
+            <a
+              href="https://github.com/rmuraix/tomato-recognizer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-neutral-600 dark:hover:text-neutral-200"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
       </div>
     </nav>
