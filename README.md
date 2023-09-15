@@ -2,9 +2,14 @@
 
 ![Licence](https://img.shields.io/github/license/rmuraix/tomato-recognizer)
 
+![app image](./docs/img/tomato-app.png)
+
 ## About
 
-Web application for identifying ripe and unripe tomatoes.
+Web application for identifying ripe and unripe tomatoes.  
+I use YOLO for tomato detection.
+
+![](./docs/img/results.png)
 
 ## Usage
 
