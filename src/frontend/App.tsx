@@ -29,6 +29,10 @@ function App() {
   }, []);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
+    accept: {
+      "image/*": [],
+    },
+    maxFiles: 1,
   });
 
   const filesUpdated: FileWithPath[] = acceptedFiles;
@@ -59,7 +63,7 @@ function App() {
                   and drop
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  PNG or JPG
+                  PNG or JPG (Max 1 file)
                 </p>
               </div>
               <input
@@ -67,7 +71,7 @@ function App() {
                 id="dropzone-file"
                 type="file"
                 className="hidden"
-                accept="image/png, image/jpeg, image/jpg"
+                accept="image/*"
               />
             </label>
           </div>
