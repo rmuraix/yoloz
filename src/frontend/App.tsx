@@ -9,6 +9,7 @@ function App() {
   const [result, setResult] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Executed after image loading
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     setIsLoading(true);
     const formData = new FormData();
@@ -27,6 +28,8 @@ function App() {
 
     setIsLoading(false);
   }, []);
+
+  // Dropzone settings
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
     accept: {
@@ -35,6 +38,7 @@ function App() {
     maxFiles: 1,
   });
 
+  // Display information about loaded images in text
   const filesUpdated: FileWithPath[] = acceptedFiles;
   const files = useMemo(
     () =>
