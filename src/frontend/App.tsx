@@ -12,6 +12,12 @@ function App() {
   // Executed after image loading
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     setIsLoading(true);
+    // When acceptedFiles is empty (all goes into fileRejections)
+    if (!acceptedFiles[0]) {
+      setIsLoading(false);
+      alert("Too many files or incorrect format");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", acceptedFiles[0]);
 
