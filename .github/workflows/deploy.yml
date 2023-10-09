@@ -45,6 +45,18 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
+      - name: Set up Python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: Create and start virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -53,10 +65,13 @@ jobs:
         with:
           name: python-app
           path: |
-            dist/
-            app.py
-            tomato_weight.pt
-            requirements.txt
+            . 
+            !venv/
+            !node_modules/
+            !.github/
+            !docs/
+            !public/
+            !src/
 
   deploy:
     permissions:
