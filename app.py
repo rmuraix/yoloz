@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder="./dist")
 
 
 def prediction(img):
-    model = YOLO("./src/ml/tomato_weight.pt")
+    model = YOLO("tomato_weight.pt")
     return model(img)
 
 
