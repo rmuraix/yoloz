@@ -3,7 +3,7 @@ from flask import Flask, render_template, send_from_directory, request, send_fil
 from PIL import Image
 from ultralytics import YOLO
 
-app = Flask(__name__, template_folder="../../dist")
+app = Flask(__name__, template_folder="./dist")
 
 
 def prediction(img):
@@ -36,13 +36,13 @@ def result():
 
 @app.route("/<path:filename>", methods=["GET"])
 def resource(filename):
-    return send_from_directory("../../dist", filename)
+    return send_from_directory("./dist", filename)
 
 
 @app.route("/assets/<path:filename>", methods=["GET"])
 def assets_resource(filename):
-    return send_from_directory("../../dist/assets", filename)
+    return send_from_directory("./dist/assets", filename)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run()
