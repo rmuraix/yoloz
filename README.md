@@ -19,8 +19,10 @@ npm i && pip install -r ./requirements.txt
 # Build
 npm run build
 # Start server
-python3 ./src/backend/server.py
+gunicorn app:app
 ```
+
+Open http://localhost:50505/ with your browser to see the result.
 
 ## NOTICE
 
